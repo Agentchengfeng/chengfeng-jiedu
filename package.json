@@ -1,0 +1,37 @@
+{
+  "name": "chengfeng-jiedu",
+  "version": "0.1.0",
+  "description": "Agent Skill that explains hard concepts as scroll-through, picture-first HTML pages",
+  "license": "Apache-2.0",
+  "author": "成峰 / AI产品自由",
+  "bin": {
+    "chengfeng-jiedu": "bin/install.js"
+  },
+  "files": [
+    "bin/",
+    "skills/",
+    "README.md",
+    "LICENSE",
+    "NOTICE.md",
+    "CITATION.cff",
+    "SKILL.md"
+  ],
+  "keywords": [
+    "agent",
+    "agent-skill",
+    "skill",
+    "explainer",
+    "eli5"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Agentchengfeng/chengfeng-jiedu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Agentchengfeng/chengfeng-jiedu/issues"
+  },
+  "homepage": "https://github.com/Agentchengfeng/chengfeng-jiedu#readme",
+  "engines": {
+    "node": ">=18"
+  }
+}

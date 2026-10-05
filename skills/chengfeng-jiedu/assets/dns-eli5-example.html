@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>DNS · 从名字到网页 · ELI5 重画示例</title>
+<style>html { color-scheme: light dark; } body { margin: 0; background: light-dark(#f7f6f2, #191a1b); }</style>
+</head>
+<body>
+<!-- ELI5 重画示例；五名五岁读者实测未完成。另存后按新任务改编，不将此示例当成所有主题的固定八章模板。 -->
+<!-- BEGIN ELI5 REFERENCE -->
+<style>
+#dns-name-to-website {
+  --dn-paper: light-dark(#f7f6f2, #191a1b); --dn-ink: light-dark(#191919, #f0eeea);
+  --dn-soft: light-dark(#66645e, #b0aea7); --dn-rule: light-dark(#d4d1c9, #444541);
+  --dn-red: light-dark(#c93624, #ff826a); --dn-tint: light-dark(#eeeae2, #262725);
+  --dn-white: light-dark(#ffffff, #20211f);
+  box-sizing:border-box; max-width:1160px; width:100%; margin:0 auto;
+  padding:clamp(24px,5.6vw,68px); color:var(--dn-ink); background:var(--dn-paper);
+  font-family:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;
+  font-size:15px; line-height:1.7; text-align:left; container-type:inline-size;
+}
+#dns-name-to-website * {box-sizing:border-box}
+#dns-name-to-website :is(h1,h2,h3,p,figure) {margin:0}
+#dns-name-to-website .dn-mast {display:flex; justify-content:space-between; align-items:center; gap:16px; border-bottom:2px solid var(--dn-ink); padding-bottom:15px; font-size:12px}
+#dns-name-to-website .dn-brand {display:flex; align-items:center; gap:10px; font-weight:600}
+#dns-name-to-website .dn-brand:before {content:""; width:10px; height:10px; background:var(--dn-red)}
+#dns-name-to-website .dn-edition {color:var(--dn-soft); font-size:11px}
+#dns-name-to-website .dn-cover {display:grid; grid-template-columns:1fr auto; gap:22px; align-items:end; padding:31px 0 35px}
+#dns-name-to-website h1 {font-size:clamp(34px,4.9vw,56px); font-weight:650; letter-spacing:-.045em; line-height:1.18}
+#dns-name-to-website .dn-cover-note {font-size:14px; color:var(--dn-soft)}
+#dns-name-to-website .dn-cover-note b {display:block; color:var(--dn-red); font-weight:500; margin-bottom:4px}
+#dns-name-to-website .dn-step {display:grid; grid-template-columns:minmax(0,.78fr) minmax(0,1.35fr); gap:38px; padding:32px 0; border-top:1px solid var(--dn-rule); align-items:start}
+#dns-name-to-website .dn-kicker {display:flex; gap:12px; font-size:12px; color:var(--dn-soft); margin-bottom:12px}
+#dns-name-to-website .dn-kicker b {color:var(--dn-red); font-weight:600}
+#dns-name-to-website h2 {font-size:clamp(24px,2.6vw,29px); font-weight:600; letter-spacing:-.035em; line-height:1.35; text-wrap:pretty}
+#dns-name-to-website .dn-copy {color:var(--dn-soft); font-size:15px; margin-top:12px; max-width:24em; line-height:1.8}
+#dns-name-to-website .dn-copy strong {color:var(--dn-ink); font-weight:500}
+#dns-name-to-website .dn-bridge {font-size:12px; color:var(--dn-red); margin-top:15px}
+#dns-name-to-website figure {min-width:0}
+#dns-name-to-website figcaption {font-size:12px; color:var(--dn-soft); margin-top:12px; line-height:1.7}
+#dns-name-to-website .dn-pair {display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:25px; align-items:end}
+#dns-name-to-website .dn-object {min-width:0; text-align:center}
+#dns-name-to-website .dn-object-label {display:block; margin-top:10px; font-size:14px; font-weight:500}
+#dns-name-to-website .dn-term {display:block; font-size:12px; font-weight:400; color:var(--dn-soft); line-height:1.6; margin-top:2px}
+#dns-name-to-website .dn-screen {border:1.5px solid var(--dn-ink); background:var(--dn-white); position:relative; text-align:left}
+#dns-name-to-website .dn-screenbar {display:flex; justify-content:space-between; gap:8px; padding:5px 9px; border-bottom:1px solid var(--dn-rule); color:var(--dn-soft); font-size:11px}
+#dns-name-to-website .dn-screenbody {padding:18px 12px; display:grid; justify-items:center; align-content:center; gap:7px; min-height:110px; font-size:13px}
+#dns-name-to-website .dn-stand {height:12px; width:24px; margin:0 auto; border-left:1px solid var(--dn-ink); border-right:1px solid var(--dn-ink)}
+#dns-name-to-website .dn-base {width:80px; border-top:1.5px solid var(--dn-ink); margin:0 auto}
+#dns-name-to-website .dn-question {font-size:42px; font-weight:400; color:var(--dn-red); line-height:1.1}
+#dns-name-to-website .dn-server {border:1.5px solid var(--dn-ink); padding:11px; background:var(--dn-tint)}
+#dns-name-to-website .dn-server-content {background:var(--dn-white); display:grid; place-items:center; min-height:86px; padding:10px; border:1px solid var(--dn-rule)}
+#dns-name-to-website .dn-slot {height:11px; border-bottom:1px solid var(--dn-ink); position:relative; margin-top:6px}
+#dns-name-to-website .dn-slot:after {content:""; position:absolute; width:3px; height:3px; border-radius:50%; background:var(--dn-red); right:2px; top:2px}
+#dns-name-to-website .dn-flower {position:relative; width:50px; height:61px; color:var(--dn-red)}
+#dns-name-to-website .dn-flower:before {content:""; position:absolute; width:2px; height:32px; background:var(--dn-ink); left:24px; top:27px}
+#dns-name-to-website .dn-flower:after {content:""; position:absolute; width:15px; height:7px; border-radius:100% 0 100% 0; background:var(--dn-ink); top:44px; left:25px; transform:rotate(-15deg)}
+#dns-name-to-website .dn-petal {position:absolute; width:22px; height:22px; background:currentColor; border-radius:50%}
+#dns-name-to-website .dn-petal:nth-child(1) {left:14px; top:0}
+#dns-name-to-website .dn-petal:nth-child(2) {left:1px; top:11px}
+#dns-name-to-website .dn-petal:nth-child(3) {left:27px; top:11px}
+#dns-name-to-website .dn-petal:nth-child(4) {left:14px; top:23px}
+#dns-name-to-website .dn-flower i {position:absolute; width:11px; height:11px; left:20px; top:18px; background:var(--dn-paper); border-radius:50%; z-index:1}
+#dns-name-to-website .dn-label {font-size:12px; color:var(--dn-soft)}
+#dns-name-to-website .dn-address-sheet {background:var(--dn-white); padding:16px 19px; border-left:3px solid var(--dn-red)}
+#dns-name-to-website .dn-big-name {font-size:clamp(22px,3vw,29px); line-height:1.3; font-weight:500; letter-spacing:-.035em; overflow-wrap:anywhere; margin-top:4px}
+#dns-name-to-website .dn-address {font-size:clamp(21px,2.6vw,27px); font-weight:500; color:var(--dn-red); letter-spacing:-.03em; overflow-wrap:anywhere}
+#dns-name-to-website .dn-down {display:flex; align-items:center; gap:14px; margin:10px 20px; color:var(--dn-soft); font-size:12px}
+#dns-name-to-website .dn-down b {color:var(--dn-red); font-size:26px; line-height:1; font-weight:400}
+#dns-name-to-website .dn-exchange {display:grid; grid-template-columns:minmax(0,1fr) minmax(95px,.9fr) minmax(0,1fr); align-items:center; gap:13px}
+#dns-name-to-website .dn-exchange .dn-screenbody {min-height:81px; padding:10px 6px; font-size:12px}
+#dns-name-to-website .dn-lines {min-width:0; align-self:center; padding-bottom:30px}
+#dns-name-to-website .dn-arrow {position:relative; border-bottom:1px solid var(--dn-ink); padding:0 7px 7px 0; margin-bottom:15px; font-size:12px; line-height:1.6; overflow-wrap:anywhere}
+#dns-name-to-website .dn-arrow:after {content:""; position:absolute; width:7px; height:7px; right:0; bottom:-4px; transform:rotate(45deg); border-top:1px solid; border-right:1px solid; border-color:var(--dn-ink)}
+#dns-name-to-website .dn-arrow.dn-back {color:var(--dn-red); border-color:var(--dn-red); padding-left:8px; margin-bottom:0}
+#dns-name-to-website .dn-arrow.dn-back:after {left:0; right:auto; transform:rotate(225deg); border-color:var(--dn-red)}
+#dns-name-to-website .dn-helper {border:1.5px solid var(--dn-ink); background:var(--dn-tint); min-height:108px; padding:16px 10px; text-align:center; display:grid; place-content:center; gap:5px}
+#dns-name-to-website .dn-helper b {font-size:21px; font-weight:500; letter-spacing:-.03em}
+#dns-name-to-website .dn-helper small {font-size:12px; color:var(--dn-soft)}
+#dns-name-to-website .dn-naming {font-size:14px; border-top:1px solid var(--dn-rule); padding-top:10px; margin-top:16px}
+#dns-name-to-website .dn-naming strong {font-weight:500; color:var(--dn-red)}
+#dns-name-to-website .dn-provider {display:grid; grid-template-columns:auto 1fr; gap:20px; align-items:center; background:var(--dn-tint); padding:19px}
+#dns-name-to-website .dn-provider-mark {border:1.5px solid var(--dn-ink); padding:10px 12px; font-size:23px; font-weight:500; background:var(--dn-white)}
+#dns-name-to-website .dn-provider p {font-size:15px}
+#dns-name-to-website .dn-provider small {font-size:12px; color:var(--dn-soft)}
+#dns-name-to-website .dn-note-row {display:flex; gap:12px; align-items:baseline; padding:12px 0 0; font-size:13px}
+#dns-name-to-website .dn-note-row b {color:var(--dn-red); font-weight:500}
+#dns-name-to-website .dn-lookup {display:grid; grid-template-columns:43px minmax(0,1fr) 121px; gap:14px; align-items:center; padding:17px 0; border-top:1px solid var(--dn-rule)}
+#dns-name-to-website .dn-lookup:first-of-type {border-top:0; padding-top:0}
+#dns-name-to-website .dn-same {height:39px; width:39px; border-radius:50%; background:var(--dn-ink); color:var(--dn-paper); display:grid; place-items:center; font-size:14px}
+#dns-name-to-website .dn-next-place {border-left:2px solid var(--dn-red); padding-left:12px}
+#dns-name-to-website .dn-next-place b {font-size:17px; font-weight:500; line-height:1.4; display:block}
+#dns-name-to-website .dn-next-place small {color:var(--dn-soft); font-size:12px}
+#dns-name-to-website .dn-lookup .dn-arrow {margin-bottom:9px}
+#dns-name-to-website .dn-lookup .dn-back {margin-bottom:0}
+#dns-name-to-website .dn-lookup-key {font-size:12px; color:var(--dn-soft); margin-bottom:14px}
+#dns-name-to-website .dn-record {display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:center; border-bottom:1px solid var(--dn-rule); padding:18px 0; font-size:17px; overflow-wrap:anywhere}
+#dns-name-to-website .dn-record b {font-weight:500; color:var(--dn-red)}
+#dns-name-to-website .dn-record-label {font-size:12px; color:var(--dn-soft); display:block; margin-bottom:5px}
+#dns-name-to-website .dn-old {color:var(--dn-soft); font-size:13px; display:block}
+#dns-name-to-website .dn-jobs {display:grid; grid-template-columns:1fr 1fr; gap:22px}
+#dns-name-to-website .dn-job {border-top:2px solid var(--dn-ink); padding-top:13px; min-width:0}
+#dns-name-to-website .dn-job b {font-size:17px; font-weight:500; display:block}
+#dns-name-to-website .dn-job p {font-size:13px; color:var(--dn-soft); margin:6px 0 12px}
+#dns-name-to-website .dn-job .dn-mini-page {display:flex; align-items:center; gap:10px; background:var(--dn-white); padding:10px; font-size:13px}
+#dns-name-to-website .dn-job .dn-flower {flex:0 0 50px}
+#dns-name-to-website .dn-recap {border-top:2px solid var(--dn-ink); padding-top:22px}
+#dns-name-to-website .dn-recap h2 {font-size:24px}
+#dns-name-to-website .dn-recap h2 span {color:var(--dn-red)}
+#dns-name-to-website details {border-top:1px solid var(--dn-rule); margin-top:18px; padding-top:10px; color:var(--dn-soft); font-size:13px; line-height:1.8}
+#dns-name-to-website summary {cursor:pointer; color:var(--dn-ink); padding:8px 0; min-height:44px}
+#dns-name-to-website details p {margin:10px 0}
+#dns-name-to-website details li {margin:6px 0}
+#dns-name-to-website a {color:var(--dn-ink); text-underline-offset:3px}
+#dns-name-to-website .dn-footline {display:flex; justify-content:space-between; gap:16px; margin-top:23px; font-size:11px; color:var(--dn-soft)}
+@container (max-width:660px) {
+  #dns-name-to-website .dn-cover {grid-template-columns:1fr; gap:15px; padding:25px 0}
+  #dns-name-to-website .dn-cover-note b {display:inline; margin-right:7px}
+  #dns-name-to-website .dn-step {grid-template-columns:1fr; gap:23px; padding:28px 0}
+  #dns-name-to-website .dn-copy {max-width:none; margin-top:9px; font-size:14px}
+  #dns-name-to-website .dn-edition {display:none}
+  #dns-name-to-website .dn-bridge {margin-top:10px}
+  #dns-name-to-website .dn-exchange {grid-template-columns:minmax(0,1fr) minmax(90px,.9fr) minmax(0,1fr); gap:9px}
+}
+@media (max-width:700px) {#dns-name-to-website {padding:25px 22px}}
+@container (max-width:360px) {
+  #dns-name-to-website .dn-exchange {grid-template-columns:minmax(0,1fr) minmax(78px,.9fr) minmax(0,1fr); gap:7px}
+  #dns-name-to-website .dn-exchange .dn-screenbody {font-size:11px; padding:10px 4px; overflow-wrap:anywhere}
+  #dns-name-to-website .dn-exchange .dn-helper {padding:12px 5px}
+  #dns-name-to-website .dn-exchange .dn-helper b {font-size:19px}
+  #dns-name-to-website .dn-exchange .dn-server {padding:6px}
+  #dns-name-to-website .dn-exchange .dn-server-content {padding:4px}
+  #dns-name-to-website .dn-exchange .dn-base {max-width:100%}
+  #dns-name-to-website .dn-lookup {grid-template-columns:32px minmax(0,1fr) 88px; gap:9px}
+  #dns-name-to-website .dn-same {width:30px; height:30px; font-size:12px}
+  #dns-name-to-website .dn-next-place {padding-left:8px}
+  #dns-name-to-website .dn-next-place b {font-size:15px}
+  #dns-name-to-website .dn-pair {gap:18px}
+  #dns-name-to-website .dn-record {font-size:15px; gap:8px}
+  #dns-name-to-website .dn-jobs {grid-template-columns:1fr; gap:20px}
+}
+</style>
+
+<article id="dns-name-to-website" lang="zh-CN" aria-label="DNS 零基础连续图解：名字、地址和网页不是同一件东西">
+  <div class="dn-mast"><span class="dn-brand">成峰解读 / DNS</span><span class="dn-edition">SWISS STYLE · READING STUDY 02</span><span>先看动作，再认识名词</span></div>
+  <header class="dn-cover">
+    <h1>我想看一朵花。<br>电脑去哪里找？</h1>
+    <p class="dn-cover-note"><b>从一个网站开始</b>名字 → 地址 → 网页</p>
+  </header>
+
+  <section class="dn-step" data-ledger="N0" aria-labelledby="dn-title-1">
+    <div><div class="dn-kicker"><b>01</b><span>先知道：我们在找什么</span></div><h2 id="dn-title-1">图片不在我这里，<br>在另一台电脑上。</h2><p class="dn-copy">我想打开一个看花的网站。要看到花，得让那台电脑把网页里的图片发过来。</p><p class="dn-bridge">那怎么找到它？ ↓</p></div>
+    <figure aria-label="我的电脑还没有图片；另一台网站电脑已经保存着花的图片">
+      <div class="dn-pair">
+        <div class="dn-object"><div class="dn-screen"><div class="dn-screenbar"><span>还没打开网页</span></div><div class="dn-screenbody"><span class="dn-question">?</span><span>我想看花</span></div></div><div class="dn-stand"></div><div class="dn-base"></div><span class="dn-object-label">我的电脑</span></div>
+        <div class="dn-object"><div class="dn-server"><div class="dn-server-content"><div class="dn-flower" role="img" aria-label="已存放的花的图片"><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><i></i></div></div><div class="dn-slot"></div><div class="dn-slot"></div></div><span class="dn-object-label">存放网页的电脑<span class="dn-term">这类提供网页的电脑，叫网站服务器</span></span></div>
+      </div>
+      <figcaption>花和网站都是教学示例；不是一个真实网站的截图。</figcaption>
+    </figure>
+  </section>
+
+  <section class="dn-step" data-ledger="N1" aria-labelledby="dn-title-2">
+    <div><div class="dn-kicker"><b>02</b><span>找到它，还差一样东西</span></div><h2 id="dn-title-2">我写下名字，<br>电脑还要查地址。</h2><p class="dn-copy">人记网站的名字。电脑连接过去，还需要一个<strong>网络上的地址</strong>。</p><p class="dn-bridge">谁来帮电脑查？ ↓</p></div>
+    <figure aria-label="网站名字 example.com，需要查到连接用的 IP 地址，示例为203.0.113.10">
+      <div class="dn-address-sheet"><span class="dn-label">我输入的网站名字 · 域名</span><div class="dn-big-name">example.com</div></div>
+      <div class="dn-down"><b aria-hidden="true">↓</b><span>连接前，先查出对应地址</span></div>
+      <div class="dn-address-sheet"><span class="dn-label">电脑连接用的地址 · IP 地址</span><div class="dn-address">203.0.113.10</div></div>
+      <figcaption>这里的“地址”不是街道门牌。这串数字只是示例，不用背。</figcaption>
+    </figure>
+  </section>
+
+  <section class="dn-step" data-ledger="N2" aria-labelledby="dn-title-3">
+    <div><div class="dn-kicker"><b>03</b><span>把名字交出去，拿回地址</span></div><h2 id="dn-title-3">电脑先问：<br>“这个名字在哪？”</h2><p class="dn-copy">有专门帮忙查地址的电脑。它查到后，把地址告诉我的电脑。</p><p class="dn-bridge">地址有了，才轮到取网页。 ↓</p></div>
+    <figure aria-label="我的电脑向查地址的电脑发送网站名，后者返回 IP 地址，不返回网页">
+      <div class="dn-exchange">
+        <div class="dn-object"><div class="dn-screen"><div class="dn-screenbar"><span>我要查</span></div><div class="dn-screenbody"><span>example.com</span></div></div><div class="dn-stand"></div><div class="dn-base"></div><span class="dn-object-label">我的电脑</span></div>
+        <div class="dn-lines"><div class="dn-arrow">发出名字<br>example.com</div><div class="dn-arrow dn-back">返回地址</div></div>
+        <div class="dn-object"><div class="dn-helper"><b>查地址</b><small>找名字对应的地址</small></div><span class="dn-object-label">查地址的电脑</span></div>
+      </div>
+      <div class="dn-naming"><strong>DNS</strong> 负责这里的“按名字查地址”。它是一套系统，不只是一台电脑。</div>
+    </figure>
+  </section>
+
+  <section class="dn-step" data-ledger="N3" aria-labelledby="dn-title-4">
+    <div><div class="dn-kicker"><b>04</b><span>这次，去问真正存着图片的电脑</span></div><h2 id="dn-title-4">拿到地址，<br>再把网页取回来。</h2><p class="dn-copy">地址帮我连过去；网站名告诉对方，我要哪一个网站。<strong>图片是网站发来的。</strong></p></div>
+    <figure aria-label="我的电脑使用 IP 地址和网站名向网站电脑请求网页；网站电脑将花的图片随网页内容返回">
+      <div class="dn-exchange">
+        <div class="dn-object"><div class="dn-screen"><div class="dn-screenbar"><span>网页打开了</span></div><div class="dn-screenbody"><div class="dn-flower" role="img" aria-label="现在能看到花的图片"><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><i></i></div></div></div><div class="dn-stand"></div><div class="dn-base"></div><span class="dn-object-label">我的电脑</span></div>
+        <div class="dn-lines"><div class="dn-arrow">请给我网页<br>名字＋地址</div><div class="dn-arrow dn-back">网页＋图片<br>传回来</div></div>
+        <div class="dn-object"><div class="dn-server"><div class="dn-server-content"><div class="dn-flower" role="img" aria-label="网站存放的同一张花的图片"><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><i></i></div></div><div class="dn-slot"></div></div><span class="dn-object-label">网站电脑<span class="dn-term">203.0.113.10</span></span></div>
+      </div>
+      <div class="dn-naming"><strong>DNS 给地址，网站给内容。</strong> 这不是同一次请求。</div>
+    </figure>
+  </section>
+
+  <section class="dn-step" data-ledger="N4" aria-labelledby="dn-title-5">
+    <div><div class="dn-kicker"><b>05</b><span>再接你问的：DNS 到底在哪</span></div><h2 id="dn-title-5">查地址这件事，<br>也由联网的电脑来做。</h2><p class="dn-copy">连上网络时，我的电脑通常就会知道：<strong>查地址，要先问谁。</strong>不是每次临时猜一个地方。</p></div>
+    <figure aria-label="代查工作由联网电脑上的解析程序完成，服务可由运营商或其他服务商提供">
+      <div class="dn-provider"><div class="dn-provider-mark">查</div><div><p>先替你找答案的程序</p><small>正式名称：递归解析器</small></div></div>
+      <div class="dn-note-row"><b>谁提供？</b><span>可能是运营商，也可以是其他服务商。</span></div>
+      <div class="dn-note-row"><b>在哪里？</b><span>运行在联网的电脑上，不是一个唯一的“DNS 总部”。</span></div>
+      <figcaption>浏览器也可能使用自己指定的查询服务；这里没检查你的实际网络设置。</figcaption>
+    </figure>
+  </section>
+
+  <section class="dn-step" data-ledger="N5" aria-labelledby="dn-title-6">
+    <div><div class="dn-kicker"><b>06</b><span>它也不知道时，怎么办</span></div><h2 id="dn-title-6">先问谁负责，<br>再去问到地址。</h2><p class="dn-copy">查过的答案可以先记一会儿。<strong>没有记住的答案时</strong>，代查电脑就按线索继续问。</p><p class="dn-bridge">每次拿到线索，再由它去问下一站。</p></div>
+    <figure aria-label="无相关缓存的简化查询：同一个递归解析器分别询问根、.com、权威 DNS；每次回答均回到解析器">
+      <div class="dn-lookup-key">三个“查”，都是同一个代查者。下面按先后顺序读。</div>
+      <div class="dn-lookup"><span class="dn-same">查</span><div><div class="dn-arrow">① .com 要去哪里问？</div><div class="dn-arrow dn-back">去问管 .com 的地方</div></div><div class="dn-next-place"><b>总入口</b><small>根 DNS</small></div></div>
+      <div class="dn-lookup"><span class="dn-same">查</span><div><div class="dn-arrow">② 谁管 example.com？</div><div class="dn-arrow dn-back">去问它的记录保管方</div></div><div class="dn-next-place"><b>管 .com 的地方</b><small>.com DNS</small></div></div>
+      <div class="dn-lookup"><span class="dn-same">查</span><div><div class="dn-arrow">③ 这个名字的地址是？</div><div class="dn-arrow dn-back">203.0.113.10</div></div><div class="dn-next-place"><b>保管该网站记录</b><small>权威 DNS</small></div></div>
+      <figcaption>第一站怎么找？代查程序预置了根服务器的地址线索。前两站回的是“接着问谁”，不是替它转发问题。</figcaption>
+    </figure>
+  </section>
+
+  <section class="dn-step" data-ledger="N6" aria-labelledby="dn-title-7">
+    <div><div class="dn-kicker"><b>07</b><span>换成你来做网站</span></div><h2 id="dn-title-7">网页放一处，<br>地址对应关系记一处。</h2><p class="dn-copy">做网站的人，一边把内容放上网站电脑；一边告诉 DNS：<strong>这个名字，对应这个地址。</strong></p></div>
+    <figure aria-label="建站时，网页图片由网站服务器提供；域名到 IP 地址的对应关系写入权威 DNS 记录">
+      <div class="dn-jobs">
+        <div class="dn-job"><b>网站电脑</b><p>放网页、图片和程序</p><div class="dn-mini-page"><div class="dn-flower" aria-hidden="true"><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><i></i></div><span>花的图片<br>留在这里</span></div></div>
+        <div class="dn-job"><b>DNS 记录</b><p>记名字与地址的对应</p><div class="dn-address-sheet"><span>example.com</span><div class="dn-down"><b aria-hidden="true">↓</b></div><span>203.0.113.10</span></div><span class="dn-term">这种 IPv4 地址记录，叫 A 记录</span></div>
+      </div>
+      <figcaption>两项服务可以由不同公司提供：例如 DNS 托管在阿里，网站放在腾讯。查哪家 DNS，看事先登记的负责方，不是看网页放在哪家公司。</figcaption>
+    </figure>
+  </section>
+
+  <section class="dn-step" data-ledger="N6" aria-labelledby="dn-title-8">
+    <div><div class="dn-kicker"><b>08</b><span>所以，网站换电脑也能找到</span></div><h2 id="dn-title-8">名字不变，<br>把记录改成新地址。</h2><p class="dn-copy">先让新电脑能提供网页，再改 DNS 记录。有的电脑还记着旧地址，要等记忆到期、重新查询后，才得到新地址。</p></div>
+    <figure aria-label="网站已先迁移到新服务器；example.com 的 A 记录从203.0.113.10改为203.0.113.20，不表示所有访客立即切换">
+      <div class="dn-record"><div><span class="dn-record-label">名字没变</span>example.com</div><span aria-hidden="true">→</span><div><span class="dn-record-label">记录里的地址变了</span><del class="dn-old">203.0.113.10</del><b>203.0.113.20</b></div></div>
+      <div class="dn-down"><b aria-hidden="true">↓</b><span>重新查到新地址的电脑，改去这里取网页</span></div>
+      <div class="dn-provider"><div class="dn-flower" role="img" aria-label="新服务器上已提前准备好的花的图片"><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><span class="dn-petal"></span><i></i></div><div><p>203.0.113.20</p><small>新网站电脑 · 网页已提前准备好</small></div></div>
+      <figcaption>“先记住一会儿”，正式叫缓存。不是改完记录，所有电脑就同时忘掉旧地址。</figcaption>
+    </figure>
+  </section>
+
+  <footer class="dn-recap">
+    <h2><span>DNS 帮你找地址。</span><br>网页由网站发过来。</h2>
+    <details><summary>看完后，可以用手指回答的三个问题</summary><ol><li>example.com 和那串数字，哪个是名字，哪个是连接用的地址？</li><li>谁把地址告诉我的电脑？谁把花的图片发给我的电脑？</li><li>先查地址，还是先按这个地址去取网页？把两步按顺序指出来。</li></ol><p>这里先不展示答案，避免把照着念误当成理解。能指图、用自己的话说明，都可以作为反馈。</p></details>
+    <details><summary>5 名 5 岁读者验收：尚未实测</summary><p>目标是 5 名 5 岁读者分别能说明上面的三项核心关系。可以由成人逐字中性朗读，但不额外讲解或提示答案；分别记录原话或指图、卡点和提示情况，5/5 完成才算通过。</p><p>目前没有收集真实儿童反馈。AI 审查和页面检查不能冒充这项结果。第 5–8 节承接成人的进一步追问，不要求儿童背出递归解析器、NS 等名称。</p></details>
+    <details><summary>继续追问：大家怎么知道要去阿里的 DNS？</summary><p>你购买域名的地方叫注册商。你在那里设置“由哪些 DNS 服务器负责这个域名”；注册商把这些信息交给上级目录的管理方，形成父区里的 NS 委派。</p><p>对 example.com 来说，.com 的目录据此回答“接着去问谁”。NS 记录写的是负责方的服务器名字；必要时还会提供地址线索（glue），或再查询服务器名字的地址。只改域名自己那一层的 NS，不等于改了上级目录里的登记。</p><p>“谁负责回答 DNS”与“网页电脑的地址”是两件事。只搬网站、没有换 DNS 托管时，通常更新相应地址记录，不需要因此更换上级 NS 委派。</p></details>
+    <details><summary>示意范围、来源与这次怎样改了讲法</summary><p>原来的入口直接出现“递归解析器、缓存”。这次先补上三样不同的东西——名字、连接地址、网页内容——再把“查地址”与“取网页”画成两次不同往返，之后才展开角色、查询路线和建站配置。</p><p>主图用一个域名通过 A 记录查到单个 IPv4 地址的简单情形。example.com 与 203.0.113.10 / .20 都是教学示意，不是实际配置。一个地址可以服务多个网站，所以取网页时也保留网站名。DNS 还可以查询其他记录，实际访问可能涉及 IPv6、多个地址、别名、转发、CDN、缓存与加密 DNS。</p><p>本轮保留未展开的问题：.com / .cn 由谁运营、盈利情况、完整建站操作；未检查你的实际网络。页面写作与理解检查遵循 <a href="https://www.cloudflare.com/learning/dns/what-is-dns/" target="_blank" rel="noopener noreferrer">Cloudflare 官方 DNS 说明</a>中的查地址与取网页区分；查询委派和缓存边界参考 <a href="https://www.rfc-editor.org/rfc/rfc1034" target="_blank" rel="noopener noreferrer">RFC 1034</a>。</p></details>
+    <div class="dn-footline"><span>CHENGFENG / READING STUDY</span><span>少字不省前提 · 图里看见动作</span></div>
+  </footer>
+</article>
+<!-- END ELI5 REFERENCE -->
+</body>
+</html>

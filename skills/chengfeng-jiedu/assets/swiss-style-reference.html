@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>成峰解读 · Swiss Style 参考模板</title>
+<style>html { color-scheme: light dark; } body { margin: 0; background: light-dark(#f7f6f2, #191a1b); }</style>
+</head>
+<body>
+<!--
+视觉参考模板：保留已认可的 DNS 样张，不代表所有主题必须分成三章。
+生成新材料时另存到任务目录，改编语义、布局、来源和理解账本映射，不覆盖此模板。
+本文件无运行时依赖；现代浏览器可直接打开，明暗配色跟随系统。
+-->
+<!-- BEGIN APPROVED REFERENCE -->
+<style>
+#swiss-dns-study {
+  --sd-paper: light-dark(#f7f6f2, #191a1b);
+  --sd-ink: light-dark(#191919, #f0eeea);
+  --sd-soft: light-dark(#66645e, #b0aea7);
+  --sd-rule: light-dark(#d4d1c9, #444541);
+  --sd-red: light-dark(#c93624, #ff826a);
+  --sd-tint: light-dark(#eeeae2, #262725);
+  --sd-white: light-dark(#ffffff, #20211f);
+  box-sizing: border-box; width: 100%; max-width: 1160px; margin: 0 auto;
+  padding: clamp(24px, 5.6vw, 68px); background: var(--sd-paper); color: var(--sd-ink);
+  font-family: "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 16px; line-height: 1.6; text-align: left;
+}
+#swiss-dns-study * { box-sizing: border-box; }
+#swiss-dns-study h1, #swiss-dns-study h2, #swiss-dns-study p, #swiss-dns-study figure { margin: 0; }
+#swiss-dns-study .sd-mast { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-bottom: 16px; border-bottom: 2px solid var(--sd-ink); font-size: 12px; font-weight: 600; letter-spacing: .05em; }
+#swiss-dns-study .sd-mast-label { display: flex; align-items: center; gap: 10px; }
+#swiss-dns-study .sd-square { width: 11px; height: 11px; background: var(--sd-red); flex: 0 0 auto; }
+#swiss-dns-study .sd-mast-end { color: var(--sd-soft); font-size: 11px; }
+#swiss-dns-study .sd-cover { padding: 30px 0 34px; display: grid; grid-template-columns: 1fr auto; gap: 22px; align-items: end; }
+#swiss-dns-study h1 { font-size: clamp(34px, 4.9vw, 58px); font-weight: 650; line-height: 1.16; letter-spacing: -.045em; }
+#swiss-dns-study .sd-cover-note { font-size: 14px; line-height: 1.6; padding-bottom: 3px; color: var(--sd-soft); }
+#swiss-dns-study .sd-cover-note strong { display: block; color: var(--sd-red); font-size: 12px; font-weight: 600; letter-spacing: .08em; margin-bottom: 6px; }
+#swiss-dns-study .sd-chapter { display: grid; grid-template-columns: minmax(0, .78fr) minmax(0, 1.35fr); gap: 38px; padding: 34px 0; border-top: 1px solid var(--sd-rule); align-items: start; }
+#swiss-dns-study .sd-section-id { display: flex; gap: 12px; color: var(--sd-soft); font-size: 12px; margin: 0 0 17px; }
+#swiss-dns-study .sd-section-id b { color: var(--sd-red); font-size: 13px; font-weight: 600; }
+#swiss-dns-study h2 { font-size: clamp(24px, 2.6vw, 30px); line-height: 1.33; font-weight: 600; letter-spacing: -.035em; }
+#swiss-dns-study .sd-copy { margin-top: 14px; font-size: 15px; color: var(--sd-soft); line-height: 1.8; max-width: 23em; }
+#swiss-dns-study .sd-copy em { color: var(--sd-ink); font-style: normal; }
+#swiss-dns-study .sd-next { display: block; margin-top: 23px; font-size: 12px; color: var(--sd-red); }
+#swiss-dns-study .sd-visual { min-width: 0; }
+#swiss-dns-study .sd-figure-label { font-size: 11px; letter-spacing: .07em; color: var(--sd-soft); margin-bottom: 15px; }
+#swiss-dns-study .sd-device { border: 1.5px solid var(--sd-ink); background: var(--sd-white); }
+#swiss-dns-study .sd-browser-top { padding: 8px 12px; font-size: 11px; border-bottom: 1px solid var(--sd-rule); display: flex; justify-content: space-between; color: var(--sd-soft); }
+#swiss-dns-study .sd-domain { font-size: clamp(23px, 3.4vw, 34px); letter-spacing: -.04em; padding: 19px 20px; font-weight: 500; }
+#swiss-dns-study .sd-domain span { color: var(--sd-soft); font-size: 15px; font-weight: 400; }
+#swiss-dns-study .sd-request-loop { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; padding: 15px 20px; }
+#swiss-dns-study .sd-vertical { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+#swiss-dns-study .sd-vertical:last-child { justify-content: flex-end; color: var(--sd-red); }
+#swiss-dns-study .sd-vline { width: 1px; height: 53px; background: var(--sd-ink); position: relative; flex: 0 0 auto; }
+#swiss-dns-study .sd-vline:after { content: ""; position: absolute; bottom: 0; left: -3px; width: 7px; height: 7px; border-right: 1.5px solid var(--sd-ink); border-bottom: 1.5px solid var(--sd-ink); transform: rotate(45deg); }
+#swiss-dns-study .sd-vline.sd-up { background: var(--sd-red); }
+#swiss-dns-study .sd-vline.sd-up:after { top: 0; bottom: auto; border-color: var(--sd-red); transform: rotate(225deg); }
+#swiss-dns-study .sd-resolver { display: flex; gap: 15px; align-items: center; padding: 15px 18px; background: var(--sd-tint); }
+#swiss-dns-study .sd-r { width: 38px; height: 38px; display: flex; justify-content: center; align-items: center; flex: 0 0 auto; border-radius: 50%; background: var(--sd-ink); color: var(--sd-paper); font-size: 17px; font-weight: 500; line-height: 1; }
+#swiss-dns-study .sd-resolver strong { font-size: 18px; font-weight: 500; }
+#swiss-dns-study .sd-resolver small { display: block; color: var(--sd-soft); font-size: 12px; }
+#swiss-dns-study .sd-caption { font-size: 12px; margin-top: 12px; line-height: 1.65; color: var(--sd-soft); }
+#swiss-dns-study .sd-caption b { font-weight: 500; color: var(--sd-ink); }
+#swiss-dns-study .sd-trace-key { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 11px; color: var(--sd-soft); padding-bottom: 13px; }
+#swiss-dns-study .sd-trace-key span:last-child { color: var(--sd-red); }
+#swiss-dns-study .sd-exchange { display: grid; grid-template-columns: 40px minmax(0, 1fr) 98px; gap: 16px; align-items: center; padding: 18px 0; border-top: 1px solid var(--sd-rule); }
+#swiss-dns-study .sd-message { position: relative; font-size: 12px; line-height: 1.5; padding: 0 5px 7px 0; margin-bottom: 10px; border-bottom: 1px solid var(--sd-ink); }
+#swiss-dns-study .sd-message:after { content: ""; position: absolute; width: 6px; height: 6px; right: 0; bottom: -3.5px; border-right: 1px solid var(--sd-ink); border-top: 1px solid var(--sd-ink); transform: rotate(45deg); }
+#swiss-dns-study .sd-message.sd-return { color: var(--sd-red); border-color: var(--sd-red); padding-left: 9px; margin: 0; }
+#swiss-dns-study .sd-message.sd-return:after { left: 0; right: auto; border-color: var(--sd-red); transform: rotate(225deg); }
+#swiss-dns-study .sd-target { align-self: center; border-left: 3px solid var(--sd-red); padding-left: 12px; }
+#swiss-dns-study .sd-target strong { display: block; font-size: 24px; font-weight: 500; line-height: 1.2; letter-spacing: -.04em; }
+#swiss-dns-study .sd-target small { font-size: 11px; color: var(--sd-soft); display: block; margin-top: 5px; }
+#swiss-dns-study .sd-result { display: flex; gap: 10px; align-items: baseline; justify-content: space-between; margin-top: 10px; border-top: 2px solid var(--sd-ink); padding-top: 11px; font-size: 12px; }
+#swiss-dns-study .sd-result b { font-size: 21px; font-weight: 500; color: var(--sd-red); letter-spacing: -.035em; }
+#swiss-dns-study .sd-config { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+#swiss-dns-study .sd-config th { font-weight: 400; font-size: 11px; color: var(--sd-soft); padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--sd-rule); }
+#swiss-dns-study .sd-config td { padding: 16px 8px; vertical-align: top; background: var(--sd-white); border-bottom: 1px solid var(--sd-rule); overflow-wrap: anywhere; }
+#swiss-dns-study .sd-config th:first-child { width: 37%; }
+#swiss-dns-study .sd-config th:nth-child(2) { width: 13%; }
+#swiss-dns-study .sd-config del { display: block; color: var(--sd-soft); font-size: 12px; }
+#swiss-dns-study .sd-config ins { text-decoration: none; color: var(--sd-red); font-size: 17px; font-weight: 500; }
+#swiss-dns-study .sd-after { display: flex; gap: 12px; align-items: center; margin: 17px 8px; font-size: 12px; color: var(--sd-soft); }
+#swiss-dns-study .sd-after b { color: var(--sd-red); font-weight: 500; font-size: 24px; }
+#swiss-dns-study .sd-site { border-left: 3px solid var(--sd-red); padding: 3px 0 3px 17px; }
+#swiss-dns-study .sd-site-label { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+#swiss-dns-study .sd-site strong { font-size: 23px; line-height: 1.3; font-weight: 500; letter-spacing: -.035em; }
+#swiss-dns-study .sd-site small { font-size: 11px; color: var(--sd-soft); }
+#swiss-dns-study .sd-files { display: flex; gap: 18px; margin-top: 11px; font-size: 12px; }
+#swiss-dns-study .sd-files span { border-top: 1px solid var(--sd-rule); padding-top: 5px; }
+#swiss-dns-study .sd-foot { border-top: 2px solid var(--sd-ink); padding-top: 16px; }
+#swiss-dns-study .sd-takeaway { display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: baseline; }
+#swiss-dns-study .sd-takeaway span { font-size: 11px; color: var(--sd-red); }
+#swiss-dns-study .sd-takeaway p { font-size: 17px; font-weight: 500; }
+#swiss-dns-study details { font-size: 12px; margin-top: 18px; color: var(--sd-soft); line-height: 1.8; }
+#swiss-dns-study summary { cursor: pointer; width: fit-content; padding: 8px 0; }
+#swiss-dns-study details p { margin: 10px 0; max-width: 65em; }
+#swiss-dns-study a { color: var(--sd-ink); text-underline-offset: 3px; }
+#swiss-dns-study .sd-colophon { display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; font-size: 10px; color: var(--sd-soft); margin-top: 23px; }
+@media (max-width: 700px) {
+  #swiss-dns-study { padding: 25px 22px; }
+  #swiss-dns-study .sd-cover { grid-template-columns: 1fr; gap: 15px; padding: 24px 0; }
+  #swiss-dns-study .sd-cover-note strong { display: inline; margin-right: 10px; }
+  #swiss-dns-study .sd-cover-note br { display: none; }
+  #swiss-dns-study .sd-chapter { grid-template-columns: 1fr; gap: 23px; padding: 27px 0; }
+  #swiss-dns-study .sd-section-id { margin-bottom: 10px; }
+  #swiss-dns-study h2 br { display: none; }
+  #swiss-dns-study .sd-copy { max-width: 100%; margin-top: 8px; font-size: 14px; }
+  #swiss-dns-study .sd-next { margin-top: 10px; }
+  #swiss-dns-study .sd-exchange { gap: 12px; grid-template-columns: 36px minmax(0, 1fr) 79px; }
+  #swiss-dns-study .sd-target { padding-left: 9px; }
+  #swiss-dns-study .sd-target strong { font-size: 21px; }
+  #swiss-dns-study .sd-target small { font-size: 11px; }
+  #swiss-dns-study .sd-r { width: 34px; height: 34px; }
+  #swiss-dns-study .sd-message { font-size: 11px; }
+  #swiss-dns-study .sd-config ins { font-size: 15px; }
+  #swiss-dns-study .sd-takeaway { grid-template-columns: 1fr; gap: 7px; }
+  #swiss-dns-study .sd-mast-end { display: none; }
+}
+</style>
+
+<article id="swiss-dns-study" lang="zh-CN" aria-label="Swiss Style DNS 解读参考：先问谁、怎样查到、站长改什么">
+  <div class="sd-mast">
+    <div class="sd-mast-label"><span class="sd-square" aria-hidden="true"></span><span>成峰解读 / DNS</span></div>
+    <span class="sd-mast-end">SWISS STYLE · DESIGN STUDY 01</span>
+    <span>03 个理解台阶</span>
+  </div>
+
+  <header class="sd-cover">
+    <h1>一个名字，<br>怎样找到网站。</h1>
+    <p class="sd-cover-note"><strong>NAME → ADDRESS</strong>先查地址，<br>再获取网页。</p>
+  </header>
+
+  <section class="sd-chapter" aria-labelledby="sd-title-1" data-ledger="N1">
+    <div>
+      <div class="sd-section-id"><b>01</b><span>从你的电脑出发</span></div>
+      <h2 id="sd-title-1">电脑先把问题，<br>交给一个代查者。</h2>
+      <p class="sd-copy">它叫<em>递归解析器</em>。网络通常已配置好它的地址，可能由运营商提供。</p>
+      <span class="sd-next">接着问：它的答案从哪里来？ ↓</span>
+    </div>
+    <figure class="sd-visual" aria-label="电脑询问递归解析器 example.com 的 IP，解析器查找后返回地址">
+      <div class="sd-device">
+        <div class="sd-browser-top"><span>你的电脑</span><span>浏览器</span></div>
+        <div class="sd-domain">example.com<span> /</span></div>
+      </div>
+      <div class="sd-request-loop">
+        <div class="sd-vertical"><span class="sd-vline" aria-hidden="true"></span><span>查询<br>这个名字的 IP？</span></div>
+        <div class="sd-vertical"><span>查找后返回<br>203.0.113.10</span><span class="sd-vline sd-up" aria-hidden="true"></span></div>
+      </div>
+      <div class="sd-resolver"><span class="sd-r" aria-hidden="true">R</span><div><strong>递归解析器</strong><small>代你查询 · 缓存答案</small></div></div>
+      <figcaption class="sd-caption">拿到 IP 后，浏览器再向<b>网站服务</b>获取网页。这里的地址仅作示意。</figcaption>
+    </figure>
+  </section>
+
+  <section class="sd-chapter" aria-labelledby="sd-title-2" data-ledger="N2">
+    <div>
+      <div class="sd-section-id"><b>02</b><span>跟着同一个代查者</span></div>
+      <h2 id="sd-title-2">先找到谁负责，<br>再问到地址。</h2>
+      <p class="sd-copy">没有相关缓存时，<em>始终是同一个解析器</em>逐层发问。根和 .com 只给线索，不替它转发。</p>
+      <span class="sd-next">接着问：最终的地址是谁填的？ ↓</span>
+    </div>
+    <figure class="sd-visual" aria-label="同一个递归解析器先问根，再问 .com，最后问域名权威 DNS；前两次得到委派线索，最后得到网站地址">
+      <div class="sd-trace-key"><span>R = 同一个递归解析器</span><span>黑线查询 / 红线返回</span></div>
+      <div class="sd-exchange">
+        <span class="sd-r" aria-hidden="true">R</span>
+        <div><div class="sd-message">① 向根发问</div><div class="sd-message sd-return">.com 的服务器线索</div></div>
+        <div class="sd-target"><strong>根 .</strong><small>顶层目录</small></div>
+      </div>
+      <div class="sd-exchange">
+        <span class="sd-r" aria-hidden="true">R</span>
+        <div><div class="sd-message">② example.com 归谁管？</div><div class="sd-message sd-return">域名的 NS 委派</div></div>
+        <div class="sd-target"><strong>.com</strong><small>父区目录</small></div>
+      </div>
+      <div class="sd-exchange">
+        <span class="sd-r" aria-hidden="true">R</span>
+        <div><div class="sd-message">③ example.com 的 A 记录？</div><div class="sd-message sd-return">203.0.113.10</div></div>
+        <div class="sd-target"><strong>权威</strong><small>域名的 DNS</small></div>
+      </div>
+      <div class="sd-result"><span>把最终答案交回电脑</span><b>203.0.113.10</b></div>
+      <figcaption class="sd-caption">起点并不神秘：解析器预置根服务器 IP；后续服务器地址来自转介线索或另行解析。</figcaption>
+    </figure>
+  </section>
+
+  <section class="sd-chapter" aria-labelledby="sd-title-3" data-ledger="N3">
+    <div>
+      <div class="sd-section-id"><b>03</b><span>换成站长的视角</span></div>
+      <h2 id="sd-title-3">你给 DNS 的，<br>是一条地址记录。</h2>
+      <p class="sd-copy">网站搬家时，先部署新服务器，再到<em>权威 DNS 控制台</em>更新地址。网页文件不放在 DNS 里。</p>
+    </div>
+    <figure class="sd-visual" aria-label="站长将 example.com 的 A 记录从203.0.113.10改为203.0.113.20；旧缓存到期重新查询后，访客连接已经部署好网页的新服务器">
+      <div class="sd-figure-label">权威 DNS 控制台 / 地址变了，名字不变</div>
+      <table class="sd-config" aria-label="A 记录更新示意">
+        <thead><tr><th scope="col">域名</th><th scope="col">类型</th><th scope="col">记录值</th></tr></thead>
+        <tbody><tr><td>example.com</td><td>A</td><td><del>203.0.113.10</del><ins>203.0.113.20</ins></td></tr></tbody>
+      </table>
+      <div class="sd-after"><b aria-hidden="true">↓</b><span>旧缓存到期、重新查到新 IP 后</span></div>
+      <div class="sd-site">
+        <div class="sd-site-label"><strong>203.0.113.20</strong><small>新网站服务器</small></div>
+        <div class="sd-files" aria-label="已经提前部署的内容"><span>网页</span><span>图片</span><span>程序</span></div>
+      </div>
+      <figcaption class="sd-caption"><b>DNS 托管可以在阿里，网站可以在腾讯。</b><br>查记录的地方，与提供网页的地方，是两回事。</figcaption>
+    </figure>
+  </section>
+
+  <footer class="sd-foot">
+    <div class="sd-takeaway"><span>这次接通的关系</span><p>谁替我查 → 怎样找到 → 谁写答案</p></div>
+    <details>
+      <summary>查看示例边界与来源</summary>
+      <p>这是三个连续段落的设计样张，不是完整 DNS 教程，也不代表你已理解。它对应“DNS 在哪”“怎么知道找哪家”“站长交给 DNS 什么”三组追问。</p>
+      <p>example.com 与 203.0.113.10 / .20 均为教学示意，不代表实际域名配置。这里仅讲 A 记录直接返回 IPv4 的情况；实际还可能涉及 AAAA、CNAME、CDN、浏览器指定的加密 DNS、上游转发和缓存。</p>
+      <p>注册商把站长设置的权威服务器信息提交给注册局，形成父区 NS 委派。只改子区里的 NS 不等于改了父区委派。NS 的值是名字；解析器必要时使用 glue 地址或另行解析服务器名。更新 A 记录也不意味着所有访客立即收到新值。</p>
+      <p>尚未展开：.com / .cn 的运营主体、盈利与完整建站步骤；未检查你的实际网络配置。下一步可用“只搬网站，是否需要改 NS？”检验这次的角色区分。</p>
+      <p>机制依据：<a href="https://www.rfc-editor.org/rfc/rfc1034" target="_blank" rel="noopener noreferrer">RFC 1034</a>；设计参考：<a href="https://www.nb.admin.ch/en/the-international-style-1950-1970" target="_blank" rel="noopener noreferrer">Swiss Style / 瑞士国家图书馆</a>。</p>
+    </details>
+    <div class="sd-colophon"><span>CHENGFENG / READING STUDY</span><span>清晰网格 · 功能色 · 连续图解</span></div>
+  </footer>
+</article>
+<!-- END APPROVED REFERENCE -->
+</body>
+</html>
+

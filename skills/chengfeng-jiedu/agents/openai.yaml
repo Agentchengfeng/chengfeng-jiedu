@@ -1,0 +1,4 @@
+interface:
+  display_name: "成峰解读"
+  short_description: "用连贯逻辑、图形与小鸟表情，把复杂问题讲成少字多图的滑动网页"
+  default_prompt: "请用 $chengfeng-jiedu 围绕当前问题，面向零基础读者用连贯逻辑、图形和必要短句讲清楚，按需生成自然滑动的 HTML，并默认用 Codex 内置浏览器验证。"

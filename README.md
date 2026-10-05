@@ -15,13 +15,13 @@
 
 ## 安装
 
-最简单的方式：把这个仓库地址发给你的 AI，跟它说：
+最简单的方式：把这句发给你的 AI，它会照着命令装好：
 
 ```text
-帮我安装这个 Skill：https://github.com/Agentchengfeng/chengfeng-jiedu
+帮我运行这条命令，安装成峰解读 Skill：npx -y github:Agentchengfeng/chengfeng-jiedu install
 ```
 
-自己装也行（需要 Node.js 18+）：
+自己在终端装也行（需要 Node.js 18+）：
 
 ```sh
 npx -y github:Agentchengfeng/chengfeng-jiedu install
